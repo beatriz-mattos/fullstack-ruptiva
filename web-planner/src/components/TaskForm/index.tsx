@@ -3,6 +3,7 @@ import { FormEvent } from 'react';
 import { useInputValue } from '../../hooks/useInputValue';
 import { PlannerDayProps } from '../../pages/PlannerPage';
 import { TaskFormContainer } from "../../utils/styles";
+import { api } from "../../services/api";
 
 export const TaskForm = (props: PlannerDayProps) => {
     const [newTaskText, onChangeTaskText] = useInputValue("");
@@ -10,17 +11,16 @@ export const TaskForm = (props: PlannerDayProps) => {
 
     const onSubmitTaskForm = (e: any) => {
         e.preventDefault();
+    const body = { "text": newTaskText, "day": newTaskDay };
 
-    //const body = { "text": newTaskText, "day": newTaskDay };
+    api.post("/create", body).then((response: any) => {
+        console.log(response);
+        props.updateTasks();
+    });
 
-    //api.post("/create", body).then((response) => {
-        //console.log(response);
-        //props.updateTasks();
-    //});
-
-    //     console.log(newTaskText);
-    //     console.log(newTaskDay);
-    // };
+        console.log(newTaskText);
+        console.log(newTaskDay);
+    };
 
     return ( 
         <TaskFormContainer onSubmit={onSubmitTaskForm}>

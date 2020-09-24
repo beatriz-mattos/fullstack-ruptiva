@@ -8,24 +8,11 @@ import { api } from '../../services/api';
 export interface PlannerDayProps {
   dayName: string;
   tasks: Task[];
-  //updateTasks: 
+  updateTasks: any;
 };
 
 export const PlannerPage: React.FC<PlannerDayProps> = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-
-  // const tasks: Task[] = [
-  //   {
-  //     text: 'Comer batata',
-  //     day: 'Terça',
-  //     id: '234gh32h534645k6787ç9',
-  //   },
-  //   {
-  //     text: 'Estudar',
-  //     day: 'Quarta',
-  //     id: '234gh32h534645k678710',
-  //   },
-  // ];
 
   const getTasks = () => {
     api.get('/').then((response) => {
@@ -46,8 +33,7 @@ export const PlannerPage: React.FC<PlannerDayProps> = () => {
   return (
     <div>
       <h3>Planner Page</h3>
-      {/* jogar no taskform -> updateTasks={getTasks} */}
-      <TaskForm />
+      <TaskForm updateTasks={getTasks} />
       <PlannerContainer>
         <PlannerDay dayName={'Domingo'} tasks={filterTasksByDay('Domingo')} />
         <PlannerDay dayName={'Segunda'} tasks={filterTasksByDay('Segunda')} />

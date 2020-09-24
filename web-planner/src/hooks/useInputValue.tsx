@@ -1,15 +1,11 @@
-import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export const useInputValue = (initialValue: string) => {
     const [inputValue, setInputValue] = useState(initialValue);
 
-    const onChange = (e: ChangeEvent<{input: string, value: string}>) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setInputValue(e.target.value);
     };
 
-    const onSubmitTask = async (e: any) => {
-        e.preventDefault();
-    };
-
-    return [inputValue, onChange, onSubmitTask];
+    return [inputValue, onChange] as const;
 };
